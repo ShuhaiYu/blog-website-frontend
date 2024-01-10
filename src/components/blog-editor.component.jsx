@@ -15,19 +15,19 @@ import { UserContext } from '../App';
 const BlogEditor = () => {
 
 
-    let { blog, blog: { title, banner, content, tags, des, author }, setBlog, textEditor, setTextEditor, setEditorState } = useContext(EditorContext);
+    let { blog, blog: { title, banner, content, tags, des }, setBlog, textEditor, setTextEditor, setEditorState } = useContext(EditorContext);
     let { userAuth: { access_token } } = useContext(UserContext);
     let navigate = useNavigate();
 
     useEffect(() => {
-        if (!textEditor.isReady) {
-            setTextEditor(new EditorJS({
-                holderId: 'textEditor',
-                data: content,
-                tools: EDITOR_JS_TOOLS,
-                placeholder: "Start writing your blog here...",
-            }))
-        }
+        // if (!textEditor.isReady) {
+        setTextEditor(new EditorJS({
+            holderId: 'textEditor',
+            data: content,
+            tools: EDITOR_JS_TOOLS,
+            placeholder: "Start writing your blog here...",
+        }))
+        // }
 
     }, []);
 
@@ -119,37 +119,36 @@ const BlogEditor = () => {
         e.target.disabled = true;
 
         if (textEditor.isReady) {
-            let blog = {
-                title,
-                banner,
-                content,
-                tags,
-                des,
-                draft: true,
-            }
+            textEditor.save().then((content) => {
+                let blog = {
+                    title,
+                    banner,
+                    content,
+                    tags,
+                    des,
+                    draft: true,
+                }
 
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-blog", blog,
-                {
-                    headers: { Authorization: `Bearer ${access_token}` }
-                })
-                .then(() => {
-                    e.target.disabled = false;
-                    toast.dismiss(loadingToast);
-                    toast.success("Saved! 👍");
+                axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-blog", blog,
+                    {
+                        headers: { Authorization: `Bearer ${access_token}` }
+                    })
+                    .then(() => {
+                        e.target.disabled = false;
+                        toast.dismiss(loadingToast);
+                        toast.success("Saved! 👍");
 
-                    setTimeout(() => {
-                        navigate("/");
-                    }, 1000);
-                })
-                .catch(({ response }) => {
-                    e.target.disabled = false;
-                    toast.dismiss(loadingToast);
-                    toast.error(response.data.message);
-                })
+                        setTimeout(() => {
+                            navigate("/");
+                        }, 1000);
+                    })
+                    .catch(({ response }) => {
+                        e.target.disabled = false;
+                        toast.dismiss(loadingToast);
+                        toast.error(response.data.message);
+                    })
+            })
         }
-
-
-
     }
 
     return (

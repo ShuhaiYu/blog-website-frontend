@@ -12,9 +12,6 @@ const PublishForm = () => {
     let characterLimit = 200;
     let tagLimit = 5;
 
-    let editorContext = useContext(EditorContext);
-    console.log(editorContext); // 调试输出
-
     let { blog, blog: { title, banner, content, tags, des }, setEditorState, setBlog } = useContext(EditorContext);
     let { userAuth: { access_token } } = useContext(UserContext);
 
