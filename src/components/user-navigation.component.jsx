@@ -20,7 +20,7 @@ const UserNavigationPanel = () => {
 
             <div className="absolute bg-white right-0 border border-grey w-60 overflow-hidden duration-200" >
                 <Link to="/editor" className="flex gap-2 link md:hidden pl-8 py-4">
-                    <i class="fi fi-rr-file-edit text-xl"></i>
+                    <i className="fi fi-rr-file-edit text-xl"></i>
                     <p>Write</p>
                 
                 </Link>

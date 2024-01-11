@@ -45,7 +45,7 @@ const Navbar = () => {
                         className="w-full md:w-auto bg-grey p-4 pl-6 pr-[12%] md:pr-6 rounded-full placeholder:text-dark-grey md:pl-12"
                         onKeyDown={handleSearch}
                     />
-                    <i class="fi fi-rr-search absolute right-[10%] md:pointer-events-none md:left-5 top-1/2 -translate-y-1/2 text-xl text-dark-grey"></i>
+                    <i className="fi fi-rr-search absolute right-[10%] md:pointer-events-none md:left-5 top-1/2 -translate-y-1/2 text-xl text-dark-grey"></i>
 
                 </div>
 
@@ -53,11 +53,11 @@ const Navbar = () => {
                     <button className="md:hidden bg-grey w-12 h-12 rounded-full flex items-center justify-center"
                         onClick={() => setShow(!show)}
                     >
-                        <i class="fi fi-rr-search text-2xl"></i>
+                        <i className="fi fi-rr-search text-2xl"></i>
                     </button>
 
                     <Link to="/editor" className="hidden md:flex gap-2 link">
-                        <i class="fi fi-rr-file-edit text-xl"></i>
+                        <i className="fi fi-rr-file-edit text-xl"></i>
                         <span className="hidden md:block">Write</span>
 
                     </Link>
