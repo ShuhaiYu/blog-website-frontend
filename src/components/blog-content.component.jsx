@@ -63,7 +63,7 @@ const BlogContent = ({ block }) => {
         return <List style={data.style} items={data.items} />
     }
     else if (type === "code") {
-        return <pre className="bg-dark-grey/30 p-3 pl-5 text-sm" dangerouslySetInnerHTML={{ __html: data.code }}></pre>
+        return <pre className="bg-dark-grey/10 p-3 pl-5 text-xl" dangerouslySetInnerHTML={{ __html: data.code }}></pre>
     }
 
 
