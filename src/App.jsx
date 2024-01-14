@@ -21,11 +21,13 @@ const App = () => {
 
         userInSession ? setUserAuth(JSON.parse(userInSession)) : setUserAuth({ access_token: null });
     }
-    , []);
+        , []);
 
     return (
-        <UserContext.Provider value={{userAuth, setUserAuth}}>
+        <UserContext.Provider value={{ userAuth, setUserAuth }}>
             <Routes>
+                <Route path="/editor" element={<Editor />} />
+                <Route path="/editor/:blog_id" element={<Editor />} />
                 <Route path="/" element={<Navbar />} >
                     <Route path="/signin" element={<UserAuthForm type={"signin"} />} />
                     <Route path="/signup" element={<UserAuthForm type={"signup"} />} />
@@ -35,7 +37,7 @@ const App = () => {
                     <Route path="blog/:blog_id" element={<BlogPage />} />
                     <Route path="*" element={<PageNotFound />} />
                 </Route>
-                <Route path="/editor" element={<Editor />} />
+
             </Routes>
         </UserContext.Provider>
 
