@@ -22,7 +22,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
                     {comment}
                 </p>
 
-                {/* <div className='flex items-center gap-3 mt-8'>
+                <div className='flex items-center gap-3 mt-8'>
                     <button className='flex items-center gap-1 text-dark-grey text-sm'>
                         <i className="fi fi-rr-comment"></i>
                         <span>Reply</span>
@@ -32,7 +32,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
                         <span>Like</span>
                     </button>
 
-                </div> */}
+                </div>
 
 
             </div>
