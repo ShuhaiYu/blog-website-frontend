@@ -7,6 +7,8 @@ import { getFormattedDate } from '../common/date';
 import BlogInteraction from '../components/blog-interaction.component';
 import BlogPostCard from '../components/blog-post.component';
 import BlogContent from '../components/blog-content.component';
+import CommentContainer from '../components/comments.component';
+import { fetchComments } from '../components/comments.component';
 
 export const blogDataStructure = {
     title: "",
@@ -32,12 +34,17 @@ const BlogPage = () => {
     const [similarBlogs, setSimilarBlogs] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isliked, setIsliked] = useState(false);
+    const [commentWrapper, setCommentWrapper] = useState(true);
+    const [totalParentCommentsLoaded, setTotalParentCommentsLoaded] = useState(0);
 
     let { title, content, banner, des, author: { personal_info: { fullname, username: author_username, profile_img } }, publishedAt } = blog;
 
-    const fetchBlog = async () => {
+    const fetchBlog = () => {
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-blog", { blog_id })
-            .then(({ data: { blog } }) => {
+            .then(async ({ data: { blog } }) => {
+
+                blog.comments = await fetchComments({ blog_id: blog._id, setParentCommentCountFun: setTotalParentCommentsLoaded });
+                setBlog(blog);
 
                 axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { tag: blog.tags[0], limit: 3, eliminate_blog: blog_id })
                     .then(({ data }) => {
@@ -45,7 +52,7 @@ const BlogPage = () => {
                     })
                     .catch(err => console.log(err));
 
-                setBlog(blog);
+
                 setLoading(false);
             })
             .catch(err => {
@@ -63,6 +70,9 @@ const BlogPage = () => {
         setBlog(blogDataStructure);
         setSimilarBlogs(null);
         setLoading(true);
+        setIsliked(false);
+        setCommentWrapper(true);
+        setTotalParentCommentsLoaded(0);
     }
 
 
@@ -71,7 +81,9 @@ const BlogPage = () => {
         <AnimatedPage>
             {
                 loading ? <Loader /> :
-                    <BlogContext.Provider value={{ blog, setBlog,isliked, setIsliked }}>
+                    <BlogContext.Provider value={{ blog, setBlog, isliked, setIsliked, commentWrapper, setCommentWrapper, totalParentCommentsLoaded, setTotalParentCommentsLoaded }}>
+
+                        <CommentContainer />
                         <div className="max-w-[900px] center py-10 max-lg:px-[5vw]">
                             <img src={banner} alt="" className="aspect-video" />
                             <div className="mt-12">
