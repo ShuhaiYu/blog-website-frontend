@@ -34,7 +34,7 @@ const BlogPage = () => {
     const [similarBlogs, setSimilarBlogs] = useState(null);
     const [loading, setLoading] = useState(true);
     const [isliked, setIsliked] = useState(false);
-    const [commentWrapper, setCommentWrapper] = useState(true);
+    const [commentWrapper, setCommentWrapper] = useState(false);
     const [totalParentCommentsLoaded, setTotalParentCommentsLoaded] = useState(0);
 
     let { title, content, banner, des, author: { personal_info: { fullname, username: author_username, profile_img } }, publishedAt } = blog;
@@ -71,7 +71,7 @@ const BlogPage = () => {
         setSimilarBlogs(null);
         setLoading(true);
         setIsliked(false);
-        setCommentWrapper(true);
+        setCommentWrapper(false);
         setTotalParentCommentsLoaded(0);
     }
 
