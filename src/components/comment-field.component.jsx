@@ -6,9 +6,9 @@ import axios from 'axios';
 import { BlogContext } from '../pages/blog.page';
 
 
-const CommentFeild = ({ action }) => {
+const CommentFeild = ({ action, index = undefined, replyingTo = undefined, setReplyFunc }) => {
 
-    let { blog, blog: { _id, author: { _id: blog_author },comments,  comments:{results:commentsArr}, activity, activity: { total_comments, total_parent_comments } }, setBlog, totalParentCommentsLoaded, setTotalParentCommentsLoaded } = useContext(BlogContext);
+    let { blog, blog: { _id, author: { _id: blog_author }, comments, comments: { results: commentsArr }, activity, activity: { total_comments, total_parent_comments } }, setBlog, totalParentCommentsLoaded, setTotalParentCommentsLoaded } = useContext(BlogContext);
 
     let { userAuth: { username, access_token, fullname, profile_img } } = useContext(UserContext);
 
@@ -23,7 +23,7 @@ const CommentFeild = ({ action }) => {
             return toast.error('Comment cannot be empty');
         }
 
-        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/add-comment", { _id, blog_author, comment }, { headers: { 'Authorization': `Bearer ${access_token}` } })
+        axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/add-comment", { _id, blog_author, comment, replying_to: replyingTo }, { headers: { 'Authorization': `Bearer ${access_token}` } })
             .then(({ data }) => {
                 setComment('');
 
@@ -31,11 +31,26 @@ const CommentFeild = ({ action }) => {
 
                 let newCommentArr;
 
-                data.childrenLevel = 0;
+                if (replyingTo) {
+                    commentsArr[index].children.push(data._id);
 
-                newCommentArr = [data, ...commentsArr];
+                    data.childrenLevel = commentsArr[index].childrenLevel + 1;
+                    data.parentIndex = index;
 
-                let parentCommentIncrementVal = 1;
+                    commentsArr[index].isReplyLoaded = true;
+
+                    commentsArr.splice(index + 1, 0, data);
+
+                    newCommentArr = commentsArr;
+                    setReplyFunc(false);
+                } else {
+
+                    data.childrenLevel = 0;
+
+                    newCommentArr = [data, ...commentsArr];
+                }
+
+                let parentCommentIncrementVal = replyingTo ? 0 : 1;
 
                 setBlog({ ...blog, comments: { ...comments, results: newCommentArr }, activity: { ...activity, total_comments: total_comments + 1, total_parent_comments: total_parent_comments + parentCommentIncrementVal } });
                 setTotalParentCommentsLoaded(preVal => preVal + parentCommentIncrementVal);
