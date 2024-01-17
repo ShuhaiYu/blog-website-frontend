@@ -9,7 +9,7 @@ const CommentCard = ({ index, leftVal, commentData }) => {
 
     let { commented_by: { personal_info: { profile_img, fullname, username: commented_by_username } }, commentedAt, comment, _id, children } = commentData;
 
-    let { blog, blog: { comments, comments: { results: commentsArr }, activity, activity:{total_parent_comments}, author: { personal_info: { username: blog_author_username } } }, setBlog, setTotalParentCommentsLoaded } = useContext(BlogContext);
+    let { blog, blog: { comments, comments: { results: commentsArr }, activity, activity: { total_parent_comments }, author: { personal_info: { username: blog_author_username } } }, setBlog, setTotalParentCommentsLoaded } = useContext(BlogContext);
 
     let { userAuth: { access_token, username } } = useContext(UserContext);
 
@@ -61,18 +61,18 @@ const CommentCard = ({ index, leftVal, commentData }) => {
     }
 
 
-    const handleLoadReply = ({ skip = 0 }) => {
-        if (children.length) {
+    const handleLoadReply = ({ skip = 0, currentIndex = index }) => {
+        if (commentsArr[currentIndex].children.length) {
             handleHideReply();
 
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-replies", { _id, skip })
+            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/get-replies", { _id: commentsArr[currentIndex]._id, skip })
                 .then(({ data: { replies } }) => {
-                    commentData.isReplyLoaded = true;
+                    commentsArr[currentIndex].isReplyLoaded = true;
 
                     for (let i = 0; i < replies.length; i++) {
-                        replies[i].childrenLevel = commentData.childrenLevel + 1;
+                        replies[i].childrenLevel = commentsArr[currentIndex].childrenLevel + 1;
 
-                        commentsArr.splice(index + 1 + i + skip, 0, replies[i]);
+                        commentsArr.splice(currentIndex + 1 + i + skip, 0, replies[i]);
                     }
 
                     setBlog({ ...blog, comments: { ...comments, results: commentsArr } })
@@ -116,12 +116,36 @@ const CommentCard = ({ index, leftVal, commentData }) => {
         removeCommentsCard(index + 1)
     }
 
+    const LoadMoreReplyButton = () => {
+
+        let parentIndex = getParentIndex();
+
+        let button = <button className='flex items-center gap-2 text-dark-grey text-sm p-2 px-3 hover:bg-grey/30 rounded-md'
+                        onClick={() => handleLoadReply({ skip: index - parentIndex, currentIndex: parentIndex })}>
+                        <i className="fi fi-rr-comment"></i>
+                        <span>Load more replies</span>
+                    </button>
+
+        if (commentsArr[index + 1]) {
+            if (commentsArr[index + 1].childrenLevel < commentsArr[index].childrenLevel) {
+                if ((index - parentIndex) < commentsArr[parentIndex].children.length) {
+                    return button;
+                }
+            }
+        } else {
+            if (parentIndex) {
+                if ((index - parentIndex) < commentsArr[parentIndex].children.length) {
+                    return button
+                }
+            }
+        }
+    }
+
     return (
         <div className='w-full' style={{ paddingLeft: `${leftVal * 10}px` }}>
             <div className='my-5 p-6 rounded-md border border-grey'>
                 <div className='flex items-center gap-3 mb-8'>
                     <img src={profile_img} alt="" className='w-6 h-6 rounded-full' />
-
 
                     <p className='text-sm text-dark-grey line-clamp-1'>
                         {fullname} @{commented_by_username}
@@ -174,6 +198,8 @@ const CommentCard = ({ index, leftVal, commentData }) => {
 
 
             </div>
+
+            <LoadMoreReplyButton />
 
         </div>
     )
