@@ -10,6 +10,7 @@ import PageNotFound from "./pages/404.page";
 import ProfilePage from "./pages/profile.page";
 import BlogPage from "./pages/blog.page";
 import SideNavbar from "./components/sidenavbar.component";
+import ChangePassword from "./pages/change-password.page";
 
 export const UserContext = createContext({});
 
@@ -33,7 +34,7 @@ const App = () => {
                     <Route index element={<HomePage />} />
                     <Route path="settings" element={<SideNavbar/>}>
                         <Route path="edit-profile" element={<div>Profile</div>} />
-                        <Route path="change-password" element={<div>Password</div>} />
+                        <Route path="change-password" element={<ChangePassword/>} />
                         
                     </Route>
                     <Route path="/signin" element={<UserAuthForm type={"signin"} />} />
