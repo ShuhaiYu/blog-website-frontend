@@ -100,9 +100,11 @@ const EditProfile = () => {
             formData[key] = value;
         }
 
+        console.log(formData);
+
         let { username, bio, facebook, github, instagram, twitter, youtube, website } = formData;
 
-        if (username < 3) {
+        if (username.length < 3) {
             return toast.error("Username must be at least 3 characters long");
         }
         if (bio.length > bioLimit) {
@@ -114,16 +116,19 @@ const EditProfile = () => {
         e.target.setAttribute("disabled", true);
 
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/update-profile", {
-            username, fullname, social_links: { facebook, github, instagram, twitter, youtube, website }
+            username, bio, social_links: { facebook, github, instagram, twitter, youtube, website }
         }, {
             headers: {
                 "Authorization": `Bearer ${access_token}`
             }
         })
             .then(({ data }) => {
-                let newUserAuth = { ...userAuth, username: data.username };
-                storeInSession("user", JSON.stringify(newUserAuth));
-                setUserAuth(newUserAuth);
+                if (data.username !== userAuth.username) {
+                    let newUserAuth = { ...userAuth, username: data.username };
+                    storeInSession("user", JSON.stringify(newUserAuth));
+                    setUserAuth(newUserAuth);
+
+                }
 
                 toast.dismiss(loadingToast);
                 e.target.removeAttribute("disabled");
@@ -170,7 +175,7 @@ const EditProfile = () => {
                                         <InputBox name="email" type="text" value={email} placeholder="Email" icon="fi-rr-envelope" disable={true} />
                                     </div>
                                 </div>
-                                <InputBox name="username" type="text" value={profile_username} placeholder="Username" icon="fi-rr-at" disable={true} />
+                                <InputBox name="username" type="text" value={profile_username} placeholder="Username" icon="fi-rr-at"/>
 
                                 <p className="text-dark-grey -mt-3">
                                     Username will be used to search your profile and will be visible to everyone.

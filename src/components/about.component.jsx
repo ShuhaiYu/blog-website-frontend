@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { getFullDay } from "../common/date";
 
 const AboutUser = ({ className, bio, social_links, joinedAt }) => {
+    console.log(social_links);
     return (
         <div className={"md:w-[90%] md:mt-7 " + className}>
             <p className="text-xl font-medium leading-7">{bio.length ? bio : "Nothing to read here"}</p>
@@ -14,8 +15,8 @@ const AboutUser = ({ className, bio, social_links, joinedAt }) => {
                             let link = social_links[key];
 
                             return (
-                                link ? <Link to={link} key={index} target="_blank" className="flex items-center gap-2">
-                                    <i className={"fi " + (key !== "website" ? "fi-brands-" + key : "fi-rr-globe")+ "text-2xl hover:text-black"} />
+                                link ? <Link to={link} key={index} target="_blank" className="flex items-center gap-2 ">
+                                    <i className={"fi " + (key !== "website" ? "fi-brands-" + key : "fi-rr-globe") + " text-2xl hover:text-black"} />
                                 </Link> : " "
 
                             )
