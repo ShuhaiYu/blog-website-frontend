@@ -14,7 +14,7 @@ const InputBox = ({ name, type, id, value, placeholder, icon, disable = false })
                 placeholder={placeholder}
                 disabled={disable}
                 className="input-box" />
-            <i class={"fi " + icon + " input-icon"}></i>
+            <i className={"fi " + icon + " input-icon"}></i>
             {
                 type === "password" &&
                 <i onClick={() => setPasswordVisible(!passwordVisible)} className={"fi " + (passwordVisible ? "fi-rr-eye-crossed" : "fi-rr-eye") + " input-icon left-[auto] right-4 cursor-pointer"}></i>
