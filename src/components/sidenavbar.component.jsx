@@ -5,11 +5,11 @@ import { UserContext } from '../App'
 
 
 const SideNavbar = () => {
-    let { userAuth: { access_token } } = useContext(UserContext);
+    let { userAuth: { access_token, new_notification_available } } = useContext(UserContext);
 
     let page = location.pathname.split("/")[2]; //page name
 
-    let [pageState, setPageState] = useState(page.replace("-"," ")); //page state
+    let [pageState, setPageState] = useState(page.replace("-", " ")); //page state
     let [showSidebar, setShowSidebar] = useState(false); //sidebar state
 
     let activeTabLine = useRef();
@@ -54,7 +54,7 @@ const SideNavbar = () => {
                             <hr ref={activeTabLine} className='absolute bottom-0 duration-500' />
                         </div>
 
-                        <div className={'min-w-[200px] h-[calc(100vh-80px-60px)] md:h-cover md:sticky top-24 overflow-y-auto p-6 md:pr-0 md:border-grey md:border-r absolute max-md:top-[64px] bg-white max-md:w-[calc(100%+80px)] max-md:px-16 max-md:-ml-7 duration-500 ' + (showSidebar ? "opacity-100 pointer-events-auto": "max-md:opacity-0 max-md:pointer-events-none")}>
+                        <div className={'min-w-[200px] h-[calc(100vh-80px-60px)] md:h-cover md:sticky top-24 overflow-y-auto p-6 md:pr-0 md:border-grey md:border-r absolute max-md:top-[64px] bg-white max-md:w-[calc(100%+80px)] max-md:px-16 max-md:-ml-7 duration-500 ' + (showSidebar ? "opacity-100 pointer-events-auto" : "max-md:opacity-0 max-md:pointer-events-none")}>
                             <h1 className="text-xl text-dark-grey mb-3">Dashboard</h1>
                             <hr className='border-grey -ml-6 mb-8 mr-6' />
 
@@ -63,9 +63,18 @@ const SideNavbar = () => {
                                 <span>Blogs</span>
                             </NavLink>
 
-                            <NavLink to="/dashboard/notification" className="sidebar-link" onClick={(e) => setPageState(e.target.innerText)}>
-                                <i className="fi fi-rr-bell"></i>
-                                <span>Notification</span>
+                            <NavLink to="/dashboard/notifications" className="sidebar-link" onClick={(e) => setPageState(e.target.innerText)}>
+                                <div className='relative'>
+                                    <i className="fi fi-rr-bell"></i>
+                                    {
+                                        new_notification_available ?
+                                            <span className="bg-red w-2 h-2 rounded-full absolute z-10 top-0 right-0"></span>
+                                            :
+                                            null
+                                    }
+                                </div>
+
+                                <span>Notifications</span>
                             </NavLink>
 
                             <NavLink to="/editor" className="sidebar-link" onClick={(e) => setPageState(e.target.innerText)}>
