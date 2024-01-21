@@ -7,7 +7,7 @@ import BlogPostCard from "../components/blog-post.component";
 import { activeTabRef } from "../components/inpage-navigation.component";
 import MinimalBlogPostCard from "../components/nobanner-blog-post.component";
 import NoDataMessage from "../components/nodata.component";
-import { fillterPaginationData } from "../common/filter-pagination-data";
+import { filterPaginationData } from "../common/filter-pagination-data";
 import LoadMoreDataBtn from "../components/load-more.component";
 
 
@@ -39,7 +39,7 @@ const HomePage = () => {
     const fetchLatestBlogs = ({ page = 1 }) => {
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/latest-blogs", { page })
             .then(async ({ data }) => {
-                let formatedData = await fillterPaginationData({
+                let formatedData = await filterPaginationData({
                     state: blogs,
                     data: data.blogs,
                     page,

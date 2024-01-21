@@ -5,7 +5,7 @@ import AnimatedPage from '../common/page-animation';
 import Loader from '../components/loader.component';
 import { UserContext } from '../App';
 import AboutUser from '../components/about.component';
-import { fillterPaginationData } from '../common/filter-pagination-data';
+import { filterPaginationData } from '../common/filter-pagination-data';
 import InPageNavigation from '../components/inpage-navigation.component';
 import BlogPostCard from '../components/blog-post.component';
 import NoDataMessage from '../components/nodata.component';
@@ -63,7 +63,7 @@ const ProfilePage = () => {
 
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { page, author: user_id })
             .then(async ({ data }) => {
-                let formatedData = await fillterPaginationData({
+                let formatedData = await filterPaginationData({
                     state: blogs,
                     data: data.blogs,
                     page,

@@ -8,7 +8,7 @@ import Loader from '../components/loader.component';
 import NoDataMessage from '../components/nodata.component';
 import LoadMoreDataBtn from '../components/load-more.component';
 import axios from 'axios';
-import { fillterPaginationData } from '../common/filter-pagination-data';
+import { filterPaginationData } from '../common/filter-pagination-data';
 import UserCard from '../components/usercard.component';
 
 const SearchPage = () => {
@@ -21,7 +21,7 @@ const SearchPage = () => {
     const searchBlogs = ({ page = 1, create_new_arr = false }) => {
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { query, page })
             .then(async ({ data }) => {
-                let formatedData = await fillterPaginationData({
+                let formatedData = await filterPaginationData({
                     state: blogs,
                     data: data.blogs,
                     page,
