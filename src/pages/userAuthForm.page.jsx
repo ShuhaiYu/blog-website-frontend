@@ -9,11 +9,10 @@ import { storeInSession } from "../common/session";
 import { UserContext } from "../App";
 import { authWithGoogle } from '../common/firebase';
 
+
 const UserAuthForm = ({ type }) => {
 
     let {userAuth:  {access_token}  , setUserAuth} = useContext(UserContext);
-
-    console.log("UserAuthForm access_token:", access_token);
 
     const userAuthThroughServer = async (serverRoute, formData) => {
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + serverRoute, formData)
@@ -60,8 +59,6 @@ const UserAuthForm = ({ type }) => {
         }
 
         userAuthThroughServer(serverRoute, formData);
-
-
     }
 
     const handleGoogleAuth = async (e) => {
@@ -74,7 +71,6 @@ const UserAuthForm = ({ type }) => {
                 let formData = {
                     access_token: user.accessToken,
                 }
-
                 userAuthThroughServer(serverRoute, formData);
             }
         }).catch((error) => {
@@ -82,7 +78,6 @@ const UserAuthForm = ({ type }) => {
             console.log(error);
         })
     }
-
 
     return (
         access_token ?
@@ -139,7 +134,6 @@ const UserAuthForm = ({ type }) => {
                 </form>
             </section>
         </AnimatedPage>
-
     )
 }
 
