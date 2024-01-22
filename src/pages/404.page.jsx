@@ -16,8 +16,6 @@ const PageNotFound = () => {
                 <img src={fullLogo} className="h-8 object-contain block mx-auto select-none"></img>
                 <p className="text-dark-grey text-lg font-gelasio leading-7 mt-5">Read millions of Stories around the world</p>
             </div>
-
-
         </section>
     )
 }
