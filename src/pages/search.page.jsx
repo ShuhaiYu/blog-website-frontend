@@ -11,8 +11,8 @@ import axios from 'axios';
 import { filterPaginationData } from '../common/filter-pagination-data';
 import UserCard from '../components/usercard.component';
 
-const SearchPage = () => {
 
+const SearchPage = () => {
     let { query } = useParams();
 
     let [blogs, setBlogs] = useState(null);
@@ -50,8 +50,7 @@ const SearchPage = () => {
         resetState();
         searchBlogs({ page: 1, create_new_arr: true });
         searchUsers();
-    }
-        , [query]);
+    }, [query]);
 
     const resetState = () => {
         setBlogs(null);
@@ -106,12 +105,11 @@ const SearchPage = () => {
             <div className='min-w-[40%] lg:min-w-[350px] max-w-min border-l border-grey pl-8 pt-3 max-md:hidden'>
                 <h1 className='text-xl font-medium mb-8'>
                     Users related to search <i className='fi fi-rr-user mt-1'></i>
-                    
+
                 </h1>
                 <UserCardWrapper users={users} />
             </div>
         </section>
-
     )
 }
 
