@@ -36,8 +36,7 @@ const EditProfile = () => {
                     console.log(err);
                 })
         }
-    }
-        , [access_token]);
+    }, [access_token]);
 
     const handleBioCharChange = (e) => {
         setBioCharCount(bioLimit - e.target.value.length);
@@ -99,8 +98,6 @@ const EditProfile = () => {
         for (let [key, value] of form.entries()) {
             formData[key] = value;
         }
-
-        console.log(formData);
 
         let { username, bio, facebook, github, instagram, twitter, youtube, website } = formData;
 
@@ -175,7 +172,7 @@ const EditProfile = () => {
                                         <InputBox name="email" type="text" value={email} placeholder="Email" icon="fi-rr-envelope" disable={true} />
                                     </div>
                                 </div>
-                                <InputBox name="username" type="text" value={profile_username} placeholder="Username" icon="fi-rr-at"/>
+                                <InputBox name="username" type="text" value={profile_username} placeholder="Username" icon="fi-rr-at" />
 
                                 <p className="text-dark-grey -mt-3">
                                     Username will be used to search your profile and will be visible to everyone.
