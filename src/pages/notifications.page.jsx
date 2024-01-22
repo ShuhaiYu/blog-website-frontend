@@ -53,8 +53,7 @@ const Notifications = () => {
         if (access_token) {
             fetchNotifications({ page: 1 });
         }
-    }
-        , [access_token, filter]);
+    }, [access_token, filter]);
 
 
     return (
