@@ -82,11 +82,11 @@ const BlogPage = () => {
             {
                 loading ? <Loader /> :
                     <BlogContext.Provider value={{ blog, setBlog, isliked, setIsliked, commentWrapper, setCommentWrapper, totalParentCommentsLoaded, setTotalParentCommentsLoaded }}>
-
                         <CommentContainer />
                         <div className="max-w-[900px] center py-10 max-lg:px-[5vw]">
                             <img src={banner} alt="" className="aspect-video" />
                             <div className="mt-12">
+
                                 <h2>{title}</h2>
 
                                 <div className="flex max-sm:flex-col justify-between my-8">
@@ -112,38 +112,9 @@ const BlogPage = () => {
                                                 <BlogContent block={block} />
                                             </div>
                                         )
-
-
-                                        //     <div key={index} className="my-5">
-                                        //         {
-
-                                        //             // block.type === "header" ?
-                                        //             //     <h1 className="text-2xl">{block.data.text}</h1> :
-                                        //             //     block.type === "paragraph" ?
-                                        //             //         <p className="text-dark-grey">{block.data.text}</p> :
-                                        //             //         block.type === "image" ?
-                                        //             //             <img src={block.data.file.url} alt="" className="w-full" /> :
-                                        //             //             block.type === "list" ?
-                                        //             //                 <ul className="list-disc list-inside">
-                                        //             //                     {
-                                        //             //                         block.data.items.map((item, index) => {
-                                        //             //                             return (
-                                        //             //                                 <li key={index} className="text-dark-grey">{item}</li>
-                                        //             //                             )
-                                        //             //                         })
-                                        //             //                     }
-                                        //             //                 </ul> :
-                                        //             //                 block.type === "quote" ?
-                                        //             //                     <blockquote className="text-dark-grey">{block.data.text}</blockquote> :
-                                        //             //                     null
-                                        //         }
-                                        //     </div>
-                                        // )
-
                                     })
                                 }
                             </div>
-
 
                             <BlogInteraction />
 
@@ -162,13 +133,11 @@ const BlogPage = () => {
                                                 )
                                             })
                                         }
-
                                     </> : null
                             }
 
                         </div>
                     </BlogContext.Provider>
-
             }
         </AnimatedPage>
     )
