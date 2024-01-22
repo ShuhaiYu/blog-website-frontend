@@ -32,7 +32,6 @@ const ProfilePage = () => {
 
     let { id: profileId } = useParams();
 
-
     let [profile, setProfile] = useState(profileDataStructure);
     let [loading, setLoading] = useState(true);
     let [blogs, setBlogs] = useState(null);
@@ -88,7 +87,6 @@ const ProfilePage = () => {
             resetStates();
             fetchUserProfile();
         }
-
     }, [profileId, blogs]);
 
     const resetStates = () => {
@@ -97,7 +95,6 @@ const ProfilePage = () => {
         setProfileLoaded("");
         setLoading(true);
     }
-
 
     return (
         <AnimatedPage>
@@ -145,20 +142,13 @@ const ProfilePage = () => {
                                         }
                                         <LoadMoreDataBtn state={blogs} fetchDataFunction={fetchUserBlogs} />
                                     </>
-
                                     <AboutUser bio={bio} social_links={social_links} joinedAt={joinedAt} />
                                 </InPageNavigation>
                             </div>
-
                         </section>
                         : <PageNotFound />
-
-
-
             }
-
         </AnimatedPage>
-
     )
 }
 
