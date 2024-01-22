@@ -1,11 +1,9 @@
-
 import React, { useContext, useRef } from "react";
 import { UserContext } from "../App";
 import AnimatedPage from "../common/page-animation";
 import InputBox from "../components/input.component";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
-
 
 
 const ChangePassword = () => {
