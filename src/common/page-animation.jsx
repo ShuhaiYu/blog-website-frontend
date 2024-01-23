@@ -13,6 +13,6 @@ const AnimatedPage = ({ children, keyValue, initial = { opacity: 0 }, animate = 
             </motion.div>
         </AnimatePresence>
     )
-
 }
+
 export default AnimatedPage;
