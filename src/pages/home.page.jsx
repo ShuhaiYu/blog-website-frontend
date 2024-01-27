@@ -32,8 +32,6 @@ const HomePage = () => {
         "movies",
         "animals",
         "gaming",
-        "1",
-        "test"
     ];
 
     const fetchLatestBlogs = ({ page = 1 }) => {
@@ -45,8 +43,6 @@ const HomePage = () => {
                     page,
                     countRoute: "/count-latest-blogs"
                 });
-
-
                 setblogs(formatedData);
             })
             .catch(err => {
@@ -58,8 +54,7 @@ const HomePage = () => {
         axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/search-blogs", { tag: pageState, page })
             .then(async ({ data }) => {
 
-
-                let formatedData = await fillterPaginationData({
+                let formatedData = await filterPaginationData({
                     state: blogs,
                     data: data.blogs,
                     page,
@@ -93,9 +88,6 @@ const HomePage = () => {
             setpageState("home");
             return
         }
-        // else {
-        //     fetchBlogsByCatagory({ page: 1});
-        // }
         setpageState(category);
     }
 
@@ -197,8 +189,6 @@ const HomePage = () => {
                                             )
                                         })
                                 )
-
-
                         }
                     </div>
                 </div>

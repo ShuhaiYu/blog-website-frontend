@@ -21,10 +21,6 @@ const BlogEditor = () => {
     let navigate = useNavigate();
 
     useEffect(() => {
-        // console.log(content);
-        // if (textEditor.isReady) {
-        //     textEditor.destroy();
-        // }
         if (!textEditor.isReady) {
             setTextEditor(new EditorJS({
                 holderId: 'textEditor',
@@ -33,7 +29,6 @@ const BlogEditor = () => {
                 placeholder: "Start writing your blog here...",
             }))
         }
-
     }, []);
 
     const handleBannerUpload = (e) => {
@@ -101,14 +96,11 @@ const BlogEditor = () => {
                         toast.error("Content is required!");
                         return;
                     }
-
                 })
                 .catch((error) => {
                     console.log('Saving failed: ', error)
                 });
         }
-
-
     }
 
     const handleSaveDraft = (e) => {
@@ -146,6 +138,7 @@ const BlogEditor = () => {
                         setTimeout(() => {
                             navigate("/");
                         }, 1000);
+
                     })
                     .catch(({ response }) => {
                         e.target.disabled = false;
@@ -166,7 +159,6 @@ const BlogEditor = () => {
                     {
                         title === "" ? "New Blog" : title
                     }
-
                 </p>
 
                 <div className="flex gap-4 ml-auto">
@@ -183,7 +175,6 @@ const BlogEditor = () => {
                                 <img src={banner} className='z-20' onError={handleError} />
                                 <input id='uploadBanner' type='file' accept='.png, .jpg, .jpeg' hidden
                                     onChange={handleBannerUpload} />
-
                             </label>
                         </div>
 
@@ -199,15 +190,11 @@ const BlogEditor = () => {
 
                         <div id="textEditor" className='font-gelasio'>
 
-
-
                         </div>
                     </div>
-
                 </section>
             </AnimatedPage>
         </>
-
     )
 }
 

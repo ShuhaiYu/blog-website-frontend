@@ -24,7 +24,6 @@ const BlogPostCard = ({ content, author }) => {
                         < i className="fi fi-rr-heart text-xl" ></i>
                         {total_likes}
                     </span>
-
                 </div>
             </div>
 
@@ -32,7 +31,6 @@ const BlogPostCard = ({ content, author }) => {
                 <img src={banner} alt="" className="object-cover aspect-square w-full h-full" />
             </div>
         </Link>
-
     );
 };
 

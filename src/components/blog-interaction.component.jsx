@@ -20,17 +20,17 @@ const BlogInteraction = () => {
                 .catch(err => {
                     console.log(err);
                 });
-
         }
     }, []);
-
 
     const handleLike = () => {
         if (access_token) {
             setIsliked(preVal => !preVal);
             isliked ? total_likes-- : total_likes++;
             setBlog({ ...blog, activity: { ...activity, total_likes } });
-            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/like-blog", { _id, isliked }, { headers: { 'Authorization': `Bearer ${access_token}` } })
+            axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/like-blog", { _id, isliked }, { 
+                headers: { 'Authorization': `Bearer ${access_token}` } 
+            })
                 .then(({ data }) => {
                     console.log(data);
                 })
@@ -41,6 +41,7 @@ const BlogInteraction = () => {
             toast.error('Please login to like the blog');
         }
     }
+
     return (
         <>
             <hr className="border-grey my-2" />
@@ -76,8 +77,6 @@ const BlogInteraction = () => {
                             </Link>
                             : ""
                     }
-
-
 
                     <Link to={`https://twitter.com/intent/tweet?text=Read ${title}&url=${location.href}`} className='flex gap-2 items-center'>
                         <i className="fi fi-brands-twitter text-xl hover:text-twitter"></i>
