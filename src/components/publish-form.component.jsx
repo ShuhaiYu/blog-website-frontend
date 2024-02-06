@@ -104,8 +104,8 @@ const PublishForm = () => {
             toast.success("Published! 👍");
             
             setTimeout(() => {
-                navigate("/");
-            }, 1000);
+                navigate("/dashboard/blogs");
+            }, 500);
         } )
         .catch(({response}) => {
             e.target.disabled = false;
