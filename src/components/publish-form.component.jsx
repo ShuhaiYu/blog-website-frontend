@@ -155,7 +155,7 @@ const PublishForm = () => {
                     </textarea>
                     <p className="mt-1 text-dark-grey text-sm text-right">{characterLimit - des.length} characters left</p>
 
-                    <p className="text-dark-grey mb-2 mt-9">Topics - (helps ... )</p>
+                    <p className="text-dark-grey mb-2 mt-9">Add Tags(At least 1 tag)</p>
 
                     <div className="relative input-box pl-2 py-2 pb-4">
                         <input type="text" className="sticky input-box bg-white top-0 left-0 pl-4 mb-3 focus:bg-white" placeholder="Topic" 
